@@ -1,6 +1,6 @@
 {
   "name": "bunyan-cloudwatch",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Writable stream to write bunyan logs to AWS CloudWatch",
   "homepage": "https://github.com/skybell/bunyan-cloudwatch",
   "repository": "git://github.com/skybell/bunyan-cloudwatch.git",
@@ -33,5 +33,6 @@
     "safe-json-stringify": "^1.0.4",
     "sinon": "^20.0.0",
     "uuid": "^11.1.0"
-  }
+  },
+  "type": "module"
 }

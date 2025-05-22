@@ -1,15 +1,10 @@
 
-var util = require('util');
-var Writable = require('stream').Writable;
-const {CloudWatchLogsClient, PutLogEventsCommand} = require("@aws-sdk/client-cloudwatch-logs");
-var safeJsonStringify = require('safe-json-stringify');
+import util from 'util';
+import {Writable} from 'stream';
+import {CloudWatchLogsClient, PutLogEventsCommand, DescribeLogStreamsCommand, CreateLogGroupCommand, CreateLogStreamCommand} from "@aws-sdk/client-cloudwatch-logs";
+import safeJsonStringify from 'safe-json-stringify';
 
 var jsonStringify = safeJsonStringify ? safeJsonStringify : JSON.stringify;
-
-// CommonJS export
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = createCloudWatchStream;
-}
 
 // ESM export
 export default createCloudWatchStream;
@@ -23,7 +18,22 @@ const cloudwatchlogsInit = (AWSInit) => ({
         const cloudwatchlogs = new CloudWatchLogsClient(AWSInit);
         const command = new PutLogEventsCommand(params);
         return cloudwatchlogs.send(command, cb);
-    }
+    },
+    describeLogStreams: (params, cb) => {
+        const cloudwatchlogs = new CloudWatchLogsClient(AWSInit);
+        const command = new DescribeLogStreamsCommand(params);
+        return cloudwatchlogs.send(command, cb);
+    },
+    createLogGroup: (params, cb) => {
+        const cloudwatchlogs = new CloudWatchLogsClient(AWSInit);
+        const command = new CreateLogGroupCommand(params);
+        return cloudwatchlogs.send(command, cb);
+    },
+    createLogStream: (params, cb) => {
+        const cloudwatchlogs = new CloudWatchLogsClient(AWSInit);
+        const command = new CreateLogStreamCommand(params);
+        return cloudwatchlogs.send(command, cb);
+    },
 });
 
 util.inherits(CloudWatchStream, Writable);
